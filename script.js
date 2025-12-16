@@ -16,21 +16,38 @@ function checkEligibility(credithour, gpa){
         return "<span class='not-eligible'>Not Eligible for Dean's List</span>";
     }
 }
-
-document.write("<div class='output-box'>");
-document.write("<h2>Section 03 Result</h2>");
-
 // 3.Create Looping (for loop) to print student data such name, credithours and current gpa and their eligibility (status)
-for (var i = 0; i < studentData.length; i++){
+function displayStudents() {
+    var result = document.getElementById("result");
+    result.innerHTML = "<h2>Section 03 Result</h2>";
 
-    document.write("<div>");
-    document.write("<b>Name:</b> " + studentData[i][0] + "<br>");
-    document.write("<b>Credit Hours:</b> " + studentData[i][1] + "<br>");
-    document.write("<b>Current GPA:</b> " + studentData[i][2] + "<br>");
-    // -- AI ASSISTED CODE START --
-    document.write("<b>Status:</b> " + checkEligibility(studentData[i][1], studentData[i][2]) + "<br>");
-    // -- AI ASSISTED CODE END -- 
-    document.write("<hr style='border-top: 1px dotted #ccc;'>");
-    document.write("</div>");
-
+    for (var i = 0; i < studentData.length; i++) {
+        result.innerHTML +=
+            "<div>" +
+            "<b>Name:</b> " + studentData[i][0] + "<br>" +
+            "<b>Credit Hours:</b> " + studentData[i][1] + "<br>" +
+            "<b>Current GPA:</b> " + studentData[i][2] + "<br>" +
+            "<b>Status:</b> " +
+            checkEligibility(studentData[i][1], studentData[i][2]) +
+            "<br><hr style='border-top: 1px dotted #ccc;'></div>";
+    }
 }
+
+function addStudent() {
+    var name = document.getElementById("name").value;
+    var credit = document.getElementById("credit").value;
+    var gpa = document.getElementById("gpa").value;
+
+    // Add to array
+    studentData.push([name, Number(credit), Number(gpa)]);
+
+    // Refresh display
+    displayStudents();
+
+    // Clear input
+    document.getElementById("name").value = "";
+    document.getElementById("credit").value = "";
+    document.getElementById("gpa").value = "";
+}
+
+displayStudents();
